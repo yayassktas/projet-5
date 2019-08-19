@@ -1,0 +1,2 @@
+def conf():
+    return None
