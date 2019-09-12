@@ -39,7 +39,9 @@ pythnon3 main.py
 
 features:
 1 - Quel aliment souhaitez-vous remplacer ?
+
 Cinq categories proposer:
 
 2 - Retrouver mes aliments substitués.
+
 Sauvegarde des produits:
