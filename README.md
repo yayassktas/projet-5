@@ -17,10 +17,12 @@ windows : https://www.python.org/ftp/python/3.7.2/python-3.7.2.exe
 Ubuntu : sudo apt install python3.7
 
 virtual environment installation :
+
 pip install pipenv
            
 
 necessary package :
+
 - mysql-connector-python     
 - records 
 - requests 
