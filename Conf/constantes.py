@@ -1,28 +1,18 @@
 # -*- PipEnv -*-
 # -*- coding: Utf-8 -*-
-import mysql
-import mysql.connector
+
+# constantes base de donnees
+USER = "yayass"
+PASSWORD = "test1234"
+HOST = "locahost"
+DATABASE = "openfood"
+
+#constantes Menu fichier menu
+MENU = "Quel aliment souhaitez-vous remplacer ?","Retrouver les aliments substitués."
 
 
-
-
-
-
-cnx = mysql.connector.connect(user='yayass', password='test1234', host='127.0.0.1', database='Openfood')
-# mettre user en ma
-
-
-
-
-#db = connection.MySQLConnection(user='yayass', password='test1234',
-                                 #host='127.0.0.1',
-                                 #database='Openfood')
-
-
-
-
-
-category_list = ["Soda",
+#constantes Category fichier api_data
+CATEGORY_LIST = ["Soda",
                  "Fromages",
                  "Desserts",
                  "Viandes",

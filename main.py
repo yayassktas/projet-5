@@ -1,80 +1,59 @@
-# -*- PipEnv -*-
-# -*- coding: Utf-8 -*-
+from Conf.database_management import DatabaseManagement # interet d import databasemanagement ?
+from Conf.menu import Menu # import de la classe menu
 
 
-from db.database_management import DatabaseManagement
+class Main:
 
-MENU = [
-    "Quel aliment souhaitez-vous remplacer ?",
-    "Retrouver les aliments substitués."
-]
+    def __init__(self):
+        self.engine()
 
+    def engine():
+        # Avec méthode statique
+        Menu.Main_menu() # ne sais plus l utilite
 
-class menu:
+        choix = self.input_menu("") # appel de la methode input_menu de la classe Menu (static method?)
 
-    def __init__ (self):
-        pass
-
-    def display_choice (self, db):
-        print("-" * 50)
-        print("MENU PRINCIPAL")
-        print("-" * 50)
-        print("1 - Quel aliment souhaitez - vous remplacer ?")
-        print("2 - Afficher les produits substituts sauvegardés")
-
-        r = input()
-        if r == '1':
-            db.show_category()
-        elif r == '2':
-            db.show_substituts_db()
-        return r
-
-    def select_choice (self):
-        user_answer = (input(":"))
-        return user_answer
-
-    def category_choice (data):
-        print("-" * 50)
-        print("CHOIX DE LA CATEGORIE")
-        print("-" * 50)
-        user_answer = input("Quelle catégorie choisissez-vous?")
-
-        return user_answer
-
-    def product_choice (data):
-        print("-" * 50)
-        print("CHOIX DU PRODUIT")
-        print("-" * 50)
-        user_answer = input("Quelle produit choisissez-vous?")
-
-        return user_answer
-
-    def substitut_choice(data):
-        print("-" * 50)
-        print("MENU SUBSTITUT")
-        print("-" * 50)
-        user_answer = (input("Que voulez-vous faire? \n 1-Revenir au menu principal \n 2-Sauvegarder un substitut?"))
-
-        return user_answer
+        if choix == '1':
+            Menu.show_categories()
+        elif choix == '2':
+            Menu.show_substitutes()
+        return choix # retourne le resultat de la valeur 1 ou 2
 
 
-def main():
-    db = DatabaseManagement()  # import de la class databasemanagement
-    interface = menu()
-    r = interface.display_choice(db)
+    # besoin explications
+    def show_input(self, question, entier = False):
+        resultat = input(question)
 
-    if r == '1':
-        category_id = interface.category_choice()
-        print(category_id)
-        db.show_products_db(category_id)
+        if resultat = "Q":
+            self.exit()
 
-    if r == '2':
-        sub = interface.substitut_choice()
-        print(sub)
-        db.show_favoris()
+        # Si tu as besoin que ca soit un entier
+        if(entier):
+            # test du resultat
+            if not isinstance(resultat, int):
+                return false
 
-    # interface.select_choice()
+        return resultat
 
 
+# Tests
 if __name__ == "__main__":
-    main()
+
+    # Lance le programme
+    programme = Main()
+
+
+
+    show_db = DatabaseManagement()  # import de la classe databasemanagement
+    interface = Menu() # creation de la classe Menu avec la variable interface
+    main_home = interface.Main_Menu(db) # pourquoi le db en parametre ?
+
+    if main_home == '1':
+        category_id = interface.display_products_of_category() # a travailler
+        print(category_id)
+        show_db.show_products_db(category_id) # a travailler
+
+    if main_home == '2':
+        sub = interface.substitut_choice() # a travailler
+        print(sub)
+        show_db.show_favoris() # a travailler
