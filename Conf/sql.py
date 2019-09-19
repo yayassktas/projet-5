@@ -1,41 +1,48 @@
 # -*- PipEnv -*-
 # -*- coding: Utf-8 -*-
 # import Conf.constantes as conf
+
 import mysql.connector
-from .api_data import ApOpen
-from .constantes import *
+#from api_data import DatabaseManagement
+import api_data
+import constantes
+#from .constantes import *
 
 
 
 class InsertDb: # Classe permettant les inserts dans les tables categories products de la db openfood
 
-    def __init__ (self): # methode de connection a la db sql
+    def __init__(self): # methode de connection a la db sql
+        print(1)
         self.m_db = mysql.connector.connect(user=USER, password=PASSWORD, host=HOST,
                                             database=DATABASE)  # assigne a db mysql.connector id
+        print(2)
         self.m_cursor = self.m_db()
+        print(3)
 
-    def insert_category (self, id, name): # methode permettant l insert des donnees dans la table category
+    def insert_category(self, id, name): # methode permettant l insert des donnees dans la table category
         try:
-            sql = "INSERT INTO category (category_id, category_name) VALUES ({}, '{}')".format(id, str(name))
+            sql = "INSERT INTO category (id, name) VALUES ({}, '{}')".format(id, str(name))
             self.m_cursor.execute(sql)
-            self.m_db.commit()
+            self.m_cursor.commit()
+           # print(self.m_cursor)
         except ValueError:
             pass
 
-    def insert_product (self, a, b, c, d, e, f, g): # methode permettant les inserts dans la table product
+    def insert_product(self, a, b, c, d, e, f, g): # methode permettant les inserts dans la table product
         try:
             sql = "INSERT INTO products (products_id, product_name, description, store, nutri_score, url_product, " \
                   "category_category_id) VALUES ({}, '{}', '{}', '{}', '{}', '{}', {})".format(a, b, c, d, e, f, g)
             self.m_cursor.execute(sql)
-            self.m_db.commit()
+            self.m_cursor.commit()
         except ValueError:
             pass
 
-    def insert_favori (self):
+    def insert_favori(self):
         try:
             sql = "INSERT INTO favori (category_id, category_name) VALUES ({}, '{}')".format(id, str(name))
             self.m_cursor.execute(sql)
-            self.m_db.commit()
+            self.m_cursor.commit()
         except ValueError:
             pass
 
@@ -45,12 +52,14 @@ class InsertDb: # Classe permettant les inserts dans les tables categories produ
 def main ():
 
     data_api = ApOpen()  # import de la class apopen de api_data
-    products_lists = data_api.get_products_list()  # recup toute les donnees appel de la methode get product list de la class apopen
-    results = data_api.resultdata(products_lists)  # recup les donnees parses
+    products_lists = data_api.get_products_list()  # recup toute les donnees appel de la methode get product list de la class apopen INTERET ?
+    results = data_api.resultdata()  # recup les donnees parses
 
     db = InsertDb()  # creation de la class db avec insertdb
+    db.insert_category()
 
-    db.show_category()
+
+    cursor.close()
 
     if __name__ == "__main__":
         main()

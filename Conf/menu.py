@@ -3,8 +3,9 @@
 
 
 from Conf import database_management
-from Conf.database_management import DatabaseManagement
+from Conf.database_management import DatabaseManagement as db
 from Conf.constantes import MENU
+
 
 
 MENU
@@ -17,15 +18,15 @@ class Menu:
 # methode print 
 
     @staticmethod
-    def Main_Menu (self, db): # methode affichant le menu principal de choix 
+    def Main_Menu(): # methode affichant le menu principal de choix
         print("-" * 50)
         print("MENU PRINCIPAL")
         print("-" * 50)
-        print("1 - Quel aliment souhaitez - vous remplacer ?")
+        print("1 - afficher les categories")
         print("2 - Afficher les produits substituts sauvegardés")    
   
     @staticmethod    
-    def display_products_of_category (data): # affiche des produits de la category
+    def category_menu(): # affiche des produits de la category
         print("-" * 50)
         print("CHOIX DE LA CATEGORIE")
         print("-" * 50)
@@ -47,24 +48,17 @@ class Menu:
 #   methode input
 
     @staticmethod
-    def input_menu (self): # methode input si appuis sur 1, affiche les categories si appui sur 2 affiche les substituts
+    def input_menu(): # methode input si appuis sur 1, affiche les categories si appui sur 2 affiche les substituts
         r = input()
-        if r == '1':
-            db.show_category()
-        elif r == '2':
-            db.show_substituts_db()
         return r
 
     @staticmethod
-    def choice_of_the_category (self): # l utilisateur rentre un numero correspondant a une category input
+    def choice_of_the_category(): # l utilisateur rentre un numero correspondant a une category input
         user_answer = (input(":"))
         return user_answer
 
 
-    @staticmethod
-    def put_category (self): # affiche le message quelle category choisir input
-        user_answer = input("Quelle catégorie choisissez-vous?")
-        return user_answer
+
 
 
     @staticmethod

@@ -4,7 +4,7 @@
 # constantes base de donnees
 USER = "yayass"
 PASSWORD = "test1234"
-HOST = "locahost"
+HOST = "localhost"
 DATABASE = "openfood"
 
 #constantes Menu fichier menu
