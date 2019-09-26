@@ -1,20 +1,19 @@
 import requests
 #from .constantes import *
-import constantes
-
-
+#import constantes
+from constantes import CATEGORY_LIST
 
 
 class ApOpen:
 
-    def __init__(self):
+    def __init__ (self):
+
 
         pass
 
-    def get_products_list(self):
+    def get_products_list (self):
 
         products_list = []
-
 
         for category in CATEGORY_LIST:
 
@@ -35,18 +34,18 @@ class ApOpen:
 
         return products_list
 
-    def result_the_data(self, words, products_cat):
+    def result_the_data (self, words, products_cat):
         for key in words:
             if key not in products_cat or not products_cat[key]:
                 return False
         return True
 
-    def resultdata(self, products_list):
+    def resultdata (self, products_list):
 
         result = []
         words = ['id', 'product_name_fr', 'nutrition_grade_fr',
                  'url', 'categories', 'main_category', 'stores']
-        #print(len(products_list))  # combiens elements dans liste
+        # print(len(products_list))  # combiens elements dans liste
         for product in products_list:
             if self.result_the_data(words, product):
                 product_id = product['id']
@@ -69,15 +68,11 @@ class ApOpen:
 
         return result
 
-    def check_duplicate(self, product_id, keys):
+    def check_duplicate (self, product_id, keys):
         for key in keys:
             if key[0] == product_id:
                 return False
         return True
-
-
-
-
 
 # def main():
 #     """ Initialize the data collect """
@@ -86,6 +81,3 @@ class ApOpen:
 #     data_api = ApOpen()
 #     products_lists = data_api.get_products_list()  # recup toute les donnees
 #     data_api.resultdata(products_lists)  # recup les donnees parses
-
-
-
