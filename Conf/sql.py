@@ -15,14 +15,13 @@ from constantes import *
 class InsertDb:  # Classe permettant les inserts dans les tables categories products de la db openfood
 
     def __init__ (self):  # methode de connection a la db sql
-        print(1)
+
         self.m_db = mysql.connector.connect(user=USER, password=PASSWORD, host=HOST,
                                             database=DATABASE)  # assigne a db mysql.connector id
-        print(2)
-        self.m_cursor = self.m_db.cursor()
-        print(3)
 
-    def insert_category(self, name):  # methode permettant l insert des donnees dans la table category
+        self.m_cursor = self.m_db.cursor()
+
+    def insert_category (self, name):  # methode permettant l insert des donnees dans la table category
         try:
             sql = "INSERT INTO category (name) VALUES ('{}')".format(str(name))
             self.m_cursor.execute(sql)
@@ -31,8 +30,8 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
         except ValueError:
             pass
 
-    def insert_categories(self, categories):
-        for cat in categories:
+    def recovery_categories_id(self, categories): # permet de recup l id de category ? doute
+        for cat in categories: # iteration sur category
             self.insert_category(cat)
 
     def insert_product(self, a, b, c, d, e, f):  # methode permettant les inserts dans la table product
@@ -44,25 +43,33 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
         except ValueError:
             pass
 
-    def insert_products(self, products):
-        '3124480184344',\
-        'Orangina Édition Limitée Rugby',\
-        'Aliments et boissons à base de végétaux,Boissons,Boissons à base de végétaux,Boissons gazeuses,Boissons aux fruits,Sodas,Sodas aux fruits,Boissons sans alcool,Sodas à l orange,Boissons avec sucre ajouté',\
-        'Leclerc,Auchan,E Leclerc',\
-        'e',\
-        'https://fr.openfoodfacts.org/produit/3124480184344/orangina-edition-limitee-rugby',\
-        'SODA'
-
+    def insert_products(self, products, categories):
         try:
             sql = "select * from category;"
+
+        # je parcours les produits pour trouver l'id de la catégorie correspondante
+            for product in products:
+            # cette variable contiendra l'id de la catégorie trouvée du produit en cours (de la boucle)
+                cat_id = 0
+        # je parcours les catégories pour comparer leurs nom avec celui du produit (de la boucle)
+            for category in categories:
+
+            # Je compare le nom de la catégorie avec le nom de la catégorie DU PRODUIT
+                if category[0] == product[5]:
+
+                # si les 2 noms sont similaires, alors je défini l'id de la catégorie dans ma variable finale
+                    cat_id = category[0]
+            self.insert_product(cat_id, product[1], product[2], product[3], product[4], product[5])
+        # print(products[0])
+
             self.m_cursor.execute(sql)
             self.m_db.commit()
+
         except ValueError:
             pass
 
-        print(products[0])
-      #  for id in products:
-       #     self.insert_product(a, b, c, d, e, f, g)
+    #  for id in products:
+    # self.insert_product(a, b, c, d, e, f, g)
 
     def insert_favori (self):
         try:
@@ -73,14 +80,16 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
             pass
 
 
-def main():
+def main ():
     data_api = ApOpen()  # import de la class apopen de api_data
     products_lists = data_api.get_products_list()  # recup toute les donnees appel de la methode get product list de la class apopen INTERET ?
     results = data_api.resultdata(products_lists)  # recup les donnees parses
 
     db = InsertDb()  # creation de la class db avec insertdb
-    #db.insert_categories(CATEGORY_LIST)
-    db.insert_products(results) # trouver le bon parametre
+    # db.insert_categories(CATEGORY_LIST)
+    db.insert_products(results)  # trouver le bon parametre
+    self.m_db.commit()
+
     db.m_cursor.close()
 
 
