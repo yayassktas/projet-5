@@ -1,15 +1,13 @@
 import requests
-#from .constantes import *
-#import constantes
-from constantes import CATEGORY_LIST
-#from constantes import *
-
+# from .constantes import *
+# import constantes
+# from constantes import CATEGORY_LIST
+from constantes import *
 
 
 class ApOpen:
 
     def __init__ (self):
-
 
         pass
 
@@ -19,11 +17,9 @@ class ApOpen:
 
         for category in CATEGORY_LIST:
 
-            PAYLOAD = {}
-
             payload = {'action': 'process',  # dictionnaire va rapatrier tout les criteres indiques
                        'countries': 'France',  # cherche uniquement pour la france fonctione
-                       'page_size': '500',
+                       'page_size': PAGE_SIZE,
                        'tagtype_0': 'categories',
                        'tag_contains_0': 'contains',
                        'tag_0': category,
@@ -38,7 +34,7 @@ class ApOpen:
 
         return products_list
 
-    def result_the_data(self, words, products_cat):
+    def result_the_data (self, words, products_cat):
         for key in words:
             if key not in products_cat or not products_cat[key]:
                 return False
@@ -47,17 +43,15 @@ class ApOpen:
     def resultdata (self, products_list):
 
         result = []
-        words = ['id', 'product_name_fr', 'nutrition_grade_fr',
+        words = ['product_name_fr', 'nutrition_grade_fr',
                  'url', 'categories', 'main_category', 'stores']
         # print(len(products_list))  # combiens elements dans liste
         for product in products_list:
             if self.result_the_data(words, product):
-                product_id = product['id']
                 url_product = product['url']
                 for url in url_product:
-                     if url == product['url']:
-                         return True
-
+                    if url == product['url']:
+                        return True
 
                 product_name = product['product_name_fr'].replace('\'', ' ')
                 description = product['categories'].replace('\'', ' ')
@@ -65,8 +59,8 @@ class ApOpen:
                 main_category = product['main_category'].lower()
                 store = product['stores'].replace('\'', ' ')
                 key = (product_name, description, store, nutri_score, url_product, main_category)
-                if self.check_duplicate(product_id, result):
-                    result.append(key)
+                #if self.check_duplicate(result):
+                result.append(key)
 
                 # print(' produit: ', name.upper(), '\n',
                 #       'dispo', [len(stores)],
@@ -77,7 +71,8 @@ class ApOpen:
 
         return result
 
-    def check_duplicate(self, product_id, keys):
+
+    def check_duplicate (self, product_id, keys):
         for key in keys:
             if key[0] == product_id:
                 return False

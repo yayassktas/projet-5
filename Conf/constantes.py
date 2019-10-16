@@ -19,4 +19,4 @@ CATEGORY_LIST = ["sodas",
                  "fruits"]
 
 
-
+PAGE_SIZE = 500

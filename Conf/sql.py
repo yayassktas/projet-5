@@ -56,13 +56,15 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
                 # cette variable contiendra l'id de la catégorie trouvée du produit en cours (de la boucle)
                 cat_id = 0
                 # je parcours les catégories pour comparer leurs nom avec celui du produit (de la boucle)
+                print(product)
                 for category in categories:
                     # Je compare le nom de la catégorie avec le nom de la catégorie DU PRODUIT
-                    if category[1] == product[6].lower():
+                    #print(category,product)
+                    if category[1] == product[5].lower():
                         #print (category[1])
                         # si les 2 noms sont similaires, alors je défini l'id de la catégorie dans ma variable finale
                         cat_id = category[0] # probleme les nom d id sont en majuscule
-                        self.insert_product(product[1][0:150], product[2], product[3], product[4], product[5], cat_id)
+                        self.insert_product(product[0][0:150], product[1], product[2][0:1], product[3], product[4], cat_id)
             self.m_db.commit()
         except ValueError:
             pass
