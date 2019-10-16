@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `openfood`.`products` (
     REFERENCES `openfood`.`category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB  CHARACTER SET utf8 COLLATE utf8_general_ci; 
 
 
 -- -----------------------------------------------------
