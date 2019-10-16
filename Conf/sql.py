@@ -14,14 +14,14 @@ from constantes import *
 
 class InsertDb:  # Classe permettant les inserts dans les tables categories products de la db openfood
 
-    def __init__ (self):  # methode de connection a la db sql
+    def __init__(self):  # methode de connection a la db sql
 
         self.m_db = mysql.connector.connect(user=USER, password=PASSWORD, host=HOST,
                                             database=DATABASE)  # assigne a db mysql.connector id
 
         self.m_cursor = self.m_db.cursor()
 
-    def insert_category (self, name):  # methode permettant l insert des donnees dans la table category
+    def insert_category(self, name):  # methode permettant l insert des donnees dans la table category. methode ok fonctionne
         try:
             sql = "INSERT INTO category (name) VALUES ('{}')".format(str(name))
             self.m_cursor.execute(sql)
@@ -30,9 +30,10 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
         except ValueError:
             pass
 
-    def recovery_categories_id(self, categories): # permet de recup l id de category ? doute
-        for cat in categories: # iteration sur category
-            self.insert_category(cat)
+    def insert_categories(self):
+        for category in CATEGORY_LIST:
+            self.insert_category(category)
+
 
     def insert_product(self, a, b, c, d, e, f):  # methode permettant les inserts dans la table product
         try:
@@ -43,28 +44,26 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
         except ValueError:
             pass
 
-    def insert_products(self, products, categories):
+    def insert_products(self, products):
         try:
+
             sql = "select * from category;"
-
-        # je parcours les produits pour trouver l'id de la catégorie correspondante
-            for product in products:
-            # cette variable contiendra l'id de la catégorie trouvée du produit en cours (de la boucle)
-                cat_id = 0
-        # je parcours les catégories pour comparer leurs nom avec celui du produit (de la boucle)
-            for category in categories:
-
-            # Je compare le nom de la catégorie avec le nom de la catégorie DU PRODUIT
-                if category[0] == product[5]:
-
-                # si les 2 noms sont similaires, alors je défini l'id de la catégorie dans ma variable finale
-                    cat_id = category[0]
-            self.insert_product(cat_id, product[1], product[2], product[3], product[4], product[5])
-        # print(products[0])
-
             self.m_cursor.execute(sql)
-            self.m_db.commit()
+            categories = self.m_cursor.fetchall()
+            # je parcours les produits pour trouver l'id de la catégorie correspondante
+            for product in products:
 
+                # cette variable contiendra l'id de la catégorie trouvée du produit en cours (de la boucle)
+                cat_id = 0
+                # je parcours les catégories pour comparer leurs nom avec celui du produit (de la boucle)
+                for category in categories:
+                    # Je compare le nom de la catégorie avec le nom de la catégorie DU PRODUIT
+                    if category[1] == product[6].lower():
+                        #print (category[1])
+                        # si les 2 noms sont similaires, alors je défini l'id de la catégorie dans ma variable finale
+                        cat_id = category[0] # probleme les nom d id sont en majuscule
+                        self.insert_product(product[1][0:150], product[2], product[3], product[4], product[5], cat_id)
+            self.m_db.commit()
         except ValueError:
             pass
 
@@ -86,11 +85,10 @@ def main ():
     results = data_api.resultdata(products_lists)  # recup les donnees parses
 
     db = InsertDb()  # creation de la class db avec insertdb
-    # db.insert_categories(CATEGORY_LIST)
-    db.insert_products(results)  # trouver le bon parametre
-    self.m_db.commit()
+    db.insert_categories()
+    db.insert_products(results)  # paramettre result ok
 
-    db.m_cursor.close()
+    #db.m_cursor.close()
 
 
 if __name__ == "__main__":

@@ -12,8 +12,11 @@ MENU = "Quel aliment souhaitez-vous remplacer ?","Retrouver les aliments substit
 
 
 #constantes Category fichier api_data
-CATEGORY_LIST = ["Soda",
-                 "Fromages",
-                 "Desserts",
-                 "Viandes",
-                 "Fruits"]
+CATEGORY_LIST = ["sodas",
+                 "fromages",
+                 "desserts",
+                 "viandes",
+                 "fruits"]
+
+
+
