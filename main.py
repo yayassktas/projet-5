@@ -1,10 +1,9 @@
-from Conf.database_management import DatabaseManagement # interet d import databasemanagement ?
-from Conf.menu import Menu # import de la classe menu
-
+from Conf.database_management import DatabaseManagement
+from Conf.menu import Menu
 
 class Main:
-
     def __init__(self):
+
         self.db = DatabaseManagement()
         self.engine()
 

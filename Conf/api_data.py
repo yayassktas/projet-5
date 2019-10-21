@@ -1,8 +1,5 @@
 import requests
-# from .constantes import *
-# import constantes
-# from constantes import CATEGORY_LIST
-from constantes import *
+from .constantes import *
 
 
 class ApOpen:

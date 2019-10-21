@@ -2,9 +2,10 @@
 # -*- coding: Utf-8 -*-
 
 
-from Conf import database_management
+
 from Conf.database_management import DatabaseManagement as db
-from Conf.constantes import MENU
+from .constantes import *
+
 
 
 

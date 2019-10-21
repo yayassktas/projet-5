@@ -2,7 +2,7 @@
 # -*- coding: Utf-8 -*-
 
 import mysql.connector
-from .api_data import * # ? a priori pas besoin de l import api_data car script servant uniquement a check la db
+from .api_data import *
 from .constantes import *
 
 
@@ -14,7 +14,7 @@ class DatabaseManagement: # class appele dans le fichier menu.py permettant d af
         self.m_cursor = self.m_db.cursor()  # assigne db.cursor a m_cursor
 
     def show_categories_db(self): # methode permettant d interroge la db pour recup selectionne les id les noms de la table category
-        sql_show_category = "select category_id, category_name from category;"
+        sql_show_category = "select id, name from category;"
         self.m_cursor.execute(sql_show_category)
         result = self.m_cursor.fetchall()
         return result
@@ -24,15 +24,15 @@ class DatabaseManagement: # class appele dans le fichier menu.py permettant d af
         for row in result:
             print(row[0], ":", row[1])
 
-    def show_products_db (self, category_id): # methode permettant d interroge la db pour recup les id, les noms des produits
-        sql_store = "SELECT product.id, product.name from products WHERE category.category_id = {};".format(
-            category_id)
+    def show_products_db (self, id): # methode permettant d interroge la db pour recup les id, les noms des produits
+        sql_store = "SELECT id, product_name from products WHERE id = {};".format(
+            id)
         self.m_cursor.execute(sql_store)
         result = self.m_cursor.fetchall()
         return result
 
-    def display_products_db (self, category_id): # mise en page des resultats de la table products
-        result = self.show_products_db(category_id)
+    def display_products_db (self, id): # mise en page des resultats de la table products
+        result = self.show_products_db(id)
         for row in result:
         #    print(row[0]," :", row[1])
              print(row)
