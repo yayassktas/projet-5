@@ -5,6 +5,7 @@
 
 from Conf.database_management import DatabaseManagement as db
 from .constantes import *
+#from .sql import *
 
 
 
@@ -33,15 +34,23 @@ class Menu:
         print("-" * 50)
     
     @staticmethod 
-    def display_products(data): # affiche une liste de 50 produits 
+    def display_products(): # affiche une liste de 50 produits
         print("-" * 50)
         print("CHOIX DU PRODUIT")
         print("-" * 50)
 
+
     @staticmethod
-    def substitut_choice (data):
+    def display_product():  # affiche une liste de 50 produits
         print("-" * 50)
-        print("MENU SUBSTITUT")
+        print("VOICI LE PRODUIT CHOISI")
+        print("-" * 50)
+
+
+    @staticmethod
+    def substitut_choice():
+        print("-" * 50)
+        print("choix du substitut")
         print("-" * 50)       
 
 
@@ -59,17 +68,20 @@ class Menu:
         return user_answer
 
 
-
-
+    @staticmethod
+    def choice_of_the_products(): # choix du produit input
+        user_answer = input("Quelle produit choisissez-vous?")
+        return user_answer
 
     @staticmethod
-    def choice_of_the_products (self): # choix du produit input
-        user_answer = input("Quelle produit choisissez-vous?")
+    def insertfavori(): # choix du produit input
+        user_answer = input("Quelle produit a sauvegarder?")
+        #InsertDb.insert_favori()
         return user_answer
 
 
     @staticmethod
-    def back_to_menu(data): # methode permettant le retour au menu principal input
+    def back_to_menu(): # methode permettant le retour au menu principal input
         user_answer = (input("Que voulez-vous faire? \n 1-Revenir au menu principal \n 2-Sauvegarder un substitut?"))
         return user_answer
 

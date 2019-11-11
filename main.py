@@ -10,18 +10,43 @@ class Main:
 
     def engine(self):
         # Avec méthode statique
-        Menu.Main_Menu() # ne sais plus l utilite
+        Menu.Main_Menu() # affiche menu principal
+
 
         choix = Menu.input_menu() # appel de la methode input_menu de la classe Menu (static method?)
 
         if choix == '1':
+
             Menu.category_menu()
             self.db.display_category_db()
+            # affiche toutes les categories dispo
             category = Menu.choice_of_the_category()
             print(category)
+            # affiche tout les produits de la categorie
             self.db.display_products_db(category)
+            choix2 = Menu.choice_of_the_products()
+            print(choix2)
+
+            #affichage du produit choisi
+            Menu.display_product()
+            self.db.display_product_db(choix2)
+            #affichage des potentiels substituts
+            Menu.substitut_choice()
+            self.db.show_substituts_db(category)
+            #enregistrement du substitut
+            choix3 = Menu.insertfavori()
+            print(category, choix2, choix3)
+            #sauvegarde en base de donnees
+            #confirmation sauvegarde du produit
+
+
+
+
         elif choix == '2':
-            Menu.show_substitutes()
+            self.db.show_favoris()
+            fav = Menu.show_substitutes()
+            print(fav)
+            self.db.show_substituts_db()
 
 
 

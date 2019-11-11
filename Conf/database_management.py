@@ -24,12 +24,25 @@ class DatabaseManagement: # class appele dans le fichier menu.py permettant d af
         for row in result:
             print(row[0], ":", row[1])
 
-    def show_products_db (self, id): # methode permettant d interroge la db pour recup les id, les noms des produits
+    def show_products_db(self, id): # methode permettant d interroge la db pour recup les id, les noms des produits
+        sql_store = "SELECT id, product_name from products WHERE category_id = {};".format(
+            id)
+        self.m_cursor.execute(sql_store)
+        result = self.m_cursor.fetchall()
+        return result
+
+    def show_product(self, id): # methode permettant d interroge la db pour recup un produit
         sql_store = "SELECT id, product_name from products WHERE id = {};".format(
             id)
         self.m_cursor.execute(sql_store)
         result = self.m_cursor.fetchall()
         return result
+
+    def display_product_db (self, id): # mise en page des resultats de la table products
+        result = self.show_product(id)
+        for row in result:
+        #    print(row[0]," :", row[1])
+             print(row)
 
     def display_products_db (self, id): # mise en page des resultats de la table products
         result = self.show_products_db(id)
@@ -47,8 +60,18 @@ class DatabaseManagement: # class appele dans le fichier menu.py permettant d af
         except ValueError:
             pass
 
-    def show_substituts_db (self): # methode permettant d afficher les substituts
-        pass
+    def show_substituts_db(self, id):
+        # methode permettant d afficher les substituts
+
+        sql_show_substituts = "select id, product_name, nutri_score from products where category_id = {} order by " \
+                                  "nutri_score limit 50; ".format(id)
+
+        self.m_cursor.execute(sql_show_substituts)
+        result = self.m_cursor.fetchall()
+
+        for row in result:
+            print(row)
+
 
     
 # creer la class databasemangement
