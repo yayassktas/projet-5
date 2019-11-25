@@ -4,11 +4,10 @@ from .constantes import *
 
 class ApOpen:
 
-    def __init__ (self):
-
+    def __init__(self):
         pass
 
-    def get_products_list (self):
+    def get_products_list(self):
 
         products_list = []
 

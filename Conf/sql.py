@@ -4,9 +4,9 @@
 
 import mysql.connector
 # from api_data import DatabaseManagement
-from api_data import ApOpen
+from .api_data import ApOpen
 # import constantes
-from constantes import *
+from .constantes import *
 
 
 # from .constantes import *
@@ -72,11 +72,11 @@ class InsertDb:  # Classe permettant les inserts dans les tables categories prod
     #  for id in products:
     # self.insert_product(a, b, c, d, e, f, g)
 
-    def insert_favori (self):
+    def insert_favori(self, product_id, substitut_id):
         try:
-            sql = "INSERT INTO substituts (product_id, substitut_id) VALUES ({}, '{}')".format(id, str(name))
+            sql = "INSERT INTO substituts (product_id, substitut_id) VALUES ({}, '{}')".format(product_id, substitut_id)
             self.m_cursor.execute(sql)
-            self.m_cursor.commit()
+            self.m_db.commit()
         except ValueError:
             pass
 

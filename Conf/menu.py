@@ -51,7 +51,14 @@ class Menu:
     def substitut_choice():
         print("-" * 50)
         print("choix du substitut")
-        print("-" * 50)       
+        print("-" * 50)
+
+
+    @staticmethod
+    def confirmation_substitut():
+        print("-" * 50)
+        print("produit enregistrer")
+        print("-" * 50)
 
 
 #---------------------------------------------------------------------------------

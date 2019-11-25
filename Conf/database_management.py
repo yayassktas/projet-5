@@ -66,8 +66,11 @@ class DatabaseManagement: # class appele dans le fichier menu.py permettant d af
         sql_show_substituts = "select id, product_name, nutri_score from products where category_id = {} order by " \
                                   "nutri_score limit 50; ".format(id)
 
-        self.m_cursor.execute(sql_show_substituts)
+        sql_show_id = "select * from substituts;".format(id)
+
+        self.m_cursor.execute(sql_show_id)
         result = self.m_cursor.fetchall()
+        print(sql_show_id)
 
         for row in result:
             print(row)

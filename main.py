@@ -1,9 +1,11 @@
 from Conf.database_management import DatabaseManagement
 from Conf.menu import Menu
+from Conf.sql import InsertDb
+
 
 class Main:
     def __init__(self):
-
+        self.sql = InsertDb()
         self.db = DatabaseManagement()
         self.engine()
 
@@ -37,16 +39,27 @@ class Main:
             choix3 = Menu.insertfavori()
             print(category, choix2, choix3)
             #sauvegarde en base de donnees
+            self.sql.insert_favori(choix2, choix3)
+            print('produit enregistre')
             #confirmation sauvegarde du produit
+            Menu.back_to_menu()
+            if choix == '1':
+                Menu.category_menu()
+            elif choix == '2':
+                self.sql.insert_favori(choix2, choix3)
+
+           
+
 
 
 
 
         elif choix == '2':
-            self.db.show_favoris()
-            fav = Menu.show_substitutes()
-            print(fav)
-            self.db.show_substituts_db()
+            #self.db.show_favoris()
+            #fav = Menu.show_substitutes()
+            #print(fav)
+            self.db.show_substituts_db(id)
+            Menu.back_to_menu()
 
 
 
