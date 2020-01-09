@@ -1,5 +1,5 @@
 import requests
-from .constantes import *
+from .constantes import CATEGORY_LIST, PAGE_SIZE
 
 
 class ApOpen:
@@ -30,13 +30,13 @@ class ApOpen:
 
         return products_list
 
-    def result_the_data (self, words, products_cat):
+    def result_the_data(self, words, products_cat):
         for key in words:
             if key not in products_cat or not products_cat[key]:
                 return False
         return True
 
-    def resultdata (self, products_list):
+    def resultdata(self, products_list):
 
         result = []
         words = ['product_name_fr', 'nutrition_grade_fr',
@@ -55,29 +55,17 @@ class ApOpen:
                 main_category = product['main_category'].lower()
                 store = product['stores'].replace('\'', ' ')
                 key = (product_name, description, store, nutri_score, url_product, main_category)
-                #if self.check_duplicate(result):
+                # if self.check_duplicate(result):
                 result.append(key)
-
-                # print(' produit: ', name.upper(), '\n',
-                #       'dispo', [len(stores)],
-                #       'magasin(s): = ', stores, '\n',
-                #       'présent', [sub_category], [len(categories)],
-                #       'categories: = ', categories, '\n',
-                #       '\n' * 2)
 
         return result
 
-
-    def check_duplicate (self, product_id, keys):
+    def check_duplicate(self, product_id, keys):
         for key in keys:
             if key[0] == product_id:
                 return False
         return True
 
-# def main():
-#     """ Initialize the data collect """
-#
-#     # Download the response
-#     data_api = ApOpen()
-#     products_lists = data_api.get_products_list()  # recup toute les donnees
-#     data_api.resultdata(products_lists)  # recup les donnees parses
+
+if __name__ == "__main__":
+    main()

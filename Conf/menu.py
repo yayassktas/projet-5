@@ -4,13 +4,13 @@
 
 
 from Conf.database_management import DatabaseManagement as db
-from .constantes import *
+from .constantes import CATEGORY_LIST, PAGE_SIZE
 #from .sql import *
 
 
 
 
-MENU
+
 
 
 class Menu:
@@ -19,29 +19,35 @@ class Menu:
 # ---------------------------------------------------------------------------------------------------------
 # methode print 
 
+
+# methode affichant le menu principal de choix
     @staticmethod
-    def Main_Menu(): # methode affichant le menu principal de choix
+    def Main_Menu():
         print("-" * 50)
         print("MENU PRINCIPAL")
         print("-" * 50)
-        print("1 - afficher les categories")
-        print("2 - Afficher les produits substituts sauvegardés")    
-  
-    @staticmethod    
-    def category_menu(): # affiche des produits de la category
+        print("1 - Afficher les categories")
+        print("2 - Afficher les produits substituts sauvegardés")
+        print("3 - Réinitialisation de la BDD")
+        print("4 - Quitte le programme ?")
+
+     # affiche des produits de la category
+    @staticmethod
+    def category_menu():
         print("-" * 50)
         print("CHOIX DE LA CATEGORIE")
         print("-" * 50)
-    
-    @staticmethod 
-    def display_products(): # affiche une liste de 50 produits
+
+    # affiche une liste de 50 produits
+    @staticmethod
+    def display_products():
         print("-" * 50)
         print("CHOIX DU PRODUIT")
         print("-" * 50)
 
-
+   # affiche une liste de 50 produits
     @staticmethod
-    def display_product():  # affiche une liste de 50 produits
+    def display_product():
         print("-" * 50)
         print("VOICI LE PRODUIT CHOISI")
         print("-" * 50)
@@ -64,31 +70,50 @@ class Menu:
 #---------------------------------------------------------------------------------
 #   methode input
 
+ # methode input si appuis sur 1, affiche les categories si appui sur 2 affiche les substituts
     @staticmethod
-    def input_menu(): # methode input si appuis sur 1, affiche les categories si appui sur 2 affiche les substituts
+    def input_menu():
         r = input()
         return r
 
+
+    # l utilisateur rentre un numero correspondant a une category input
     @staticmethod
-    def choice_of_the_category(): # l utilisateur rentre un numero correspondant a une category input
+    def choice_of_the_category():
         user_answer = (input(":"))
         return user_answer
 
-
+      # choix du produit input
     @staticmethod
-    def choice_of_the_products(): # choix du produit input
+    def choice_of_the_products():
         user_answer = input("Quelle produit choisissez-vous?")
         return user_answer
 
+      # choix du produit input
     @staticmethod
-    def insertfavori(): # choix du produit input
+    def insertfavori():
         user_answer = input("Quelle produit a sauvegarder?")
         #InsertDb.insert_favori()
         return user_answer
 
 
+      # import des donnees openfactfood
     @staticmethod
-    def back_to_menu(): # methode permettant le retour au menu principal input
+    def importfood():
+        user_answer = input("voulez vous importer les donnees openfactfood")
+        InsertDb.insert_categories()
+        return user_answer
+
+     # choix du produit input
+    @staticmethod
+    def confirmation_sauvegarde():
+        user_answer = input("voulez vous sauvegarder?")
+        #InsertDb.insert_favori()
+        return user_answer
+
+     # methode permettant le retour au menu principal input
+    @staticmethod
+    def back_to_menu():
         user_answer = (input("Que voulez-vous faire? \n 1-Revenir au menu principal \n 2-Sauvegarder un substitut?"))
         return user_answer
 
@@ -99,23 +124,4 @@ class Menu:
 
 
 
-# def main():
-#     db = DatabaseManagement()  # import de la class databasemanagement
-#     interface = menu()
-#     main_home = interface.display_choice(db)
-#
-#     if main_home == '1':
-#         category_id = interface.category_choice()
-#         print(category_id)
-#         db.show_products_db(category_id)
-#
-#     if main_home == '2':
-#         sub = interface.substitut_choice()
-#         print(sub)
-#         db.show_favoris()
-#
-#     # interface.select_choice()
-#
-#
-# if __name__ == "__main__":
-#     main()
+

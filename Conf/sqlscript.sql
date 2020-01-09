@@ -1,16 +1,12 @@
 CREATE SCHEMA IF NOT EXISTS `openfood` ;
 USE `openfood` ;
-SET foreign_key_checks = 0;
-DROP TABLE IF EXISTS `openfood`.`products` ;
-DROP TABLE IF EXISTS `openfood`.`substituts` ;
-DROP TABLE IF EXISTS `openfood`.`category` ;
-SET foreign_key_checks = 1;
+DROP TABLE IF EXISTS `category` ;
 CREATE TABLE IF NOT EXISTS `openfood`.`category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
+DROP TABLE IF EXISTS `openfood`.`products` ;
 CREATE TABLE IF NOT EXISTS `openfood`.`products` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `product_name` VARCHAR(150) NULL,
@@ -27,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `openfood`.`products` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB  CHARACTER SET utf8 COLLATE utf8_general_ci; 
-
+DROP TABLE IF EXISTS `openfood`.`substituts` ;
 CREATE TABLE IF NOT EXISTS `openfood`.`substituts` (
   `product_id` VARCHAR(45) NOT NULL,
   `substitut_id` INT NOT NULL,
