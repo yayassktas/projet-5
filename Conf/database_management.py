@@ -81,7 +81,7 @@ class DatabaseManagement:
 
         self.m_cursor.execute(sql_show_id)
         result = self.m_cursor.fetchall()
-        print(result)
+        print(result.format(var, var2))
         # print("Name={}, \tValue= {}".format(var, var2))
         for row in result:
             print(row[0])

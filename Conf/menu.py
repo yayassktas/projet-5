@@ -118,6 +118,15 @@ class Menu:
         return user_answer
 
 
+    @staticmethod
+    def back_to_fav ():
+        user_answer = (input("appuyer sur entree pour revenir au menu principal"))
+        return user_answer
+
+
+
+
+
 
 
 

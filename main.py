@@ -59,21 +59,14 @@ class Main:
                 else:
                     statut = False
 
-
-
-
-
-
-
             elif choix == '2':
-
                 self.db.show_substituts_db(id)
+                Menu.back_to_fav()
 
             elif choix == '3':
-
-
                 self.ini_db()
                 Menu.back_to_menu()
+
             elif choix == '4':
                 break
 
