@@ -17,9 +17,9 @@ class InsertDb:
 
     def create_db (self):
         """method for inserting data into the category table. method ok works"""
-        fd = open('sqlscript.sql', 'r')
-        sqlFile = fd.read()
-        fd.close()
+        fscript = open('sqlscript.sql', 'r')
+        sqlFile = fscript.read()
+        fscript.close()
         sqlCommands = sqlFile.split(';')
         for command in sqlCommands:
             try:
@@ -43,11 +43,11 @@ class InsertDb:
             self.insert_category(category)
 
 
-    def insert_product (self, a, b, c, d, e, f):
+    def insert_product (self, product, descri, store, nutri, url, cat):
         """method allowing inserts in the product table"""
         try:
             sql = "INSERT INTO products (product_name, description, store, nutri_score, url_product, " \
-                  "category_id) VALUES ('{}', '{}', '{}', '{}', '{}', {})".format(a, b, c, d, e, f)
+                  "category_id) VALUES ('{}', '{}', '{}', '{}', '{}', {})".format(product, descri, store, nutri, url, cat)
             self.m_cursor.execute(sql)
             self.m_db.commit()
         except ValueError:
@@ -85,14 +85,14 @@ class InsertDb:
         except ValueError:
             pass
 
-def main ():
+def main():
     """import of apopen class from api_data"""
     data_api = ApOpen()
     products_lists = data_api.get_products_list()
     results = data_api.resultdata(products_lists)
-    db = InsertDb()
-    db.insert_categories()
-    db.insert_products(results)
+    database = InsertDb()
+    database.insert_categories()
+    database.insert_products(results)
 
 if __name__ == "__main__":
     main()

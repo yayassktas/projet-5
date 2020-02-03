@@ -10,7 +10,7 @@ class Main:
 
     def __init__(self):
         self.sql = InsertDb()
-        self.Database = DatabaseManagement()
+        self.database = DatabaseManagement()
         self.engine()
 
     # main menu display
@@ -29,20 +29,20 @@ class Main:
             if choix == '1':
 
                 Menu.category_menu()
-                self.Database.display_category_db()
+                self.database.display_category_db()
 
                 category = Menu.choice_of_the_category()
                 print(category)
 
-                self.Database.display_products_db(category)
+                self.database.display_products_db(category)
                 choix2 = Menu.choice_of_the_products()
                 print(choix2)
 
                 Menu.display_product()
-                self.Database.display_product_db(choix2)
+                self.database.display_product_db(choix2)
 
                 Menu.substitut_choice()
-                self.Database.display_potential_substitut(category)
+                self.database.display_potential_substitut(category)
 
                 choix3 = Menu.insertfavori()
                 print(category, choix2, choix3)
@@ -62,7 +62,7 @@ class Main:
 
             elif choix == '2':
                 Menu.print_substituts()
-                self.Database.show_substituts_db(id)
+                self.database.show_substituts_db(id)
                 Menu.back_to_fav()
 
             elif choix == '3':
