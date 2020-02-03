@@ -1,55 +1,56 @@
+"""main file used to launch the program"""
 from Conf import DatabaseManagement
 from Conf.menu import Menu
 from Conf import InsertDb
 from Conf import ApOpen
 
 
-
-
-
 class Main:
-    def __init__ (self):
+    """creation of the main class"""
+
+    def __init__(self):
         self.sql = InsertDb()
-        self.db = DatabaseManagement()
+        self.Database = DatabaseManagement()
         self.engine()
 
-    def engine (self):
+    # main menu display
+
+    def engine(self):
+        """main menu display"""
         statut = True
         while statut:
 
-            # Avec méthode statique
-            Menu.Main_Menu()  # affiche menu principal
+            # With static method
 
-            choix = Menu.input_menu()  # appel de la methode input_menu de la classe Menu (static method?)
+            Menu.Main_Menu()
+
+            choix = Menu.input_menu()
 
             if choix == '1':
 
                 Menu.category_menu()
-                self.db.display_category_db()
-                # affiche toutes les categories dispo
+                self.Database.display_category_db()
+
                 category = Menu.choice_of_the_category()
                 print(category)
-                # affiche tout les produits de la categorie
-                self.db.display_products_db(category)
+
+                self.Database.display_products_db(category)
                 choix2 = Menu.choice_of_the_products()
                 print(choix2)
 
-                # affichage du produit choisi
                 Menu.display_product()
-                self.db.display_product_db(choix2)
-                # affichage des potentiels substituts
-                Menu.substitut_choice()
-                self.db.show_substituts_db(category)
+                self.Database.display_product_db(choix2)
 
-                # enregistrement du substitut
+                Menu.substitut_choice()
+                self.Database.display_potential_substitut(category)
+
                 choix3 = Menu.insertfavori()
-                # print(category, choix2, choix3)
-                # sauvegarde en base de donnees
+                print(category, choix2, choix3)
 
                 self.sql.insert_favori(choix2, choix3)
                 Menu.confirmation_sauvegarde()
                 print('produit enregistre')
-                # confirmation sauvegarde du produit
+
                 Menu.back_to_menu()
                 if choix == '1':
                     continue
@@ -60,7 +61,8 @@ class Main:
                     statut = False
 
             elif choix == '2':
-                self.db.show_substituts_db(id)
+                Menu.print_substituts()
+                self.Database.show_substituts_db(id)
                 Menu.back_to_fav()
 
             elif choix == '3':
@@ -70,40 +72,39 @@ class Main:
             elif choix == '4':
                 break
 
-    # besoin explications
-    def show_input (self, question, entier=False):
+    def show_input(self, question, entier=False):
+        """method waiting for user response"""
         resultat = input(question)
 
         if resultat == "Q":
             self.exit()
 
-        # Si tu as besoin que ca soit un entier
-        if (entier):
-            # test du resultat
+        if entier:
+
             if not isinstance(resultat, int):
                 return false
 
         return resultat
 
     def ini_db(self):
-        db = InsertDb()
-        print('creation de la db')
+        """db initialization method"""
 
-        db.create_db()
+        data_b = InsertDb()
+        print('creation de la Database')
 
+        data_b.create_db()
 
-        data_api = ApOpen()  # import de la class apopen de api_data
+        data_api = ApOpen()
         print('insertion donnees')
-        products_lists = data_api.get_products_list()  # recup toute les donnees appel de la methode get product list de la class apopen INTERET ?
 
-        results = data_api.resultdata(products_lists)  # recup les donnees parses
+        products_lists = data_api.get_products_list()
 
-          # creation de la class db avec insertdb
-        db.insert_categories()
-        db.insert_products(results)  # paramettre result ok
+        results = data_api.resultdata(products_lists)
+
+        data_b.insert_categories()
+        data_b.insert_products(results)
         print('import done')
 
-# Tests
+
 if __name__ == "__main__":
-    # Lance le programme
-    programme = Main()
+    program = Main()
