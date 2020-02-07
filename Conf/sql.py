@@ -27,33 +27,37 @@ class InsertDb:
             except Exception as e:
                 print('debut de la creation base de donnees')
 
-    def insert_category (self, name):
+    def insert_category(self, name):
         """category insert method"""
         try:
-            sql = "INSERT INTO category (name) VALUES ('{}')".format(str(name))
-            self.m_cursor.execute(sql)
+            sql = "INSERT INTO category (name) VALUES (%s)"
+            n = (name,)
+            print('insert_category:', n)
+            self.m_cursor.execute(sql, n)
             self.m_db.commit()
-        # print(self.m_cursor)
+            print(self.m_cursor)
         except ValueError:
             pass
 
-    def insert_categories (self):
+
+    def insert_categories(self):
         """loop for inserting into the category table"""
         for category in CATEGORY_LIST:
             self.insert_category(category)
 
-
-    def insert_product (self, product, descri, store, nutri, url, cat):
+    def insert_product(self, product, descri, store, nutri, url, cat):
         """method allowing inserts in the product table"""
         try:
             sql = "INSERT INTO products (product_name, description, store, nutri_score, url_product, " \
-                  "category_id) VALUES ('{}', '{}', '{}', '{}', '{}', {})".format(product, descri, store, nutri, url, cat)
-            self.m_cursor.execute(sql)
+                  "category_id) VALUES (%s, %s, %s, %s, %s, %s)"
+
+            v = (product, descri, store, nutri, url, cat)
+            self.m_cursor.execute(sql, v)
             self.m_db.commit()
         except ValueError:
             pass
 
-    def insert_products (self, products):
+    def insert_products(self, products):
         """method for inserting data into the product table"""
         try:
             sql = "select * from category;"
@@ -61,7 +65,7 @@ class InsertDb:
             categories = self.m_cursor.fetchall()
 
             for product in products:
-                print(product)
+                #print(product)
                 for category in categories:
                     # Je compare le nom de la catégorie avec le nom de la catégorie DU PRODUIT
                     # print(category,product)
@@ -75,12 +79,13 @@ class InsertDb:
         except ValueError:
             pass
 
-    def insert_favori (self, product_id, substitut_id):
+    def insert_favori(self, product_id, substitut_id):
         """favorite table data insert method"""
         try:
             sql = "INSERT INTO substituts (product_id, substitut_id)" \
-                  " VALUES ({}, '{}')".format(product_id, substitut_id)
-            self.m_cursor.execute(sql)
+                  " VALUES (%s, %s)"
+            v = (product_id, substitut_id)
+            self.m_cursor.execute(sql, v)
             self.m_db.commit()
         except ValueError:
             pass

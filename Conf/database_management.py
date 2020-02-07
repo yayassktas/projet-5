@@ -30,18 +30,18 @@ class DatabaseManagement:
 
     def show_products_db(self, id):
         """product display"""
-        sql_store = "SELECT id, product_name from products WHERE category_id = {};".format(
-            id)
-        self.m_cursor.execute(sql_store)
+        sql_store = "SELECT id, product_name from products WHERE category_id = %s;"
+        v = (id,)
+        self.m_cursor.execute(sql_store, v)
         result = self.m_cursor.fetchall()
 
         return result
 
     def show_potential_substitut(self, id):
         """display of substitutes"""
-        sql_store = "SELECT id, product_name from products WHERE category_id = {} ORDER BY nutri_score LIMIT 20;".format(
-            id)
-        self.m_cursor.execute(sql_store)
+        sql_store = "SELECT id, product_name from products WHERE category_id = %s ORDER BY nutri_score LIMIT 20;"
+        v = (id,)
+        self.m_cursor.execute(sql_store, v)
         result = self.m_cursor.fetchall()
 
         return result
@@ -54,9 +54,9 @@ class DatabaseManagement:
 
     def show_product(self, id):
         """product display"""
-        sql_store = "SELECT id, product_name from products WHERE id = {};".format(
-            id)
-        self.m_cursor.execute(sql_store)
+        sql_store = "SELECT id, product_name from products WHERE id = %s;"
+        v = (id,)
+        self.m_cursor.execute(sql_store, v)
         result = self.m_cursor.fetchall()
 
         return result
